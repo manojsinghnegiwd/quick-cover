@@ -36,22 +36,6 @@ const MovableHOC = WrappedComponent =>
                 ...restProps
             } = this.props
 
-            // let renderedHtml =  null
-            
-            // console.log({ __html: <WrappedComponent
-            //     {...restProps}
-            // />})
-
-            // if(setInnerHtml) {
-            //     renderedHtml = <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={this.onMovableDown} dangerouslySetInnerHTML={{ __html: WrappedComponent}}></g>
-            // } else {
-            //     renderedHtml = <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={this.onMovableDown}>
-            //         <WrappedComponent
-            //             {...restProps}
-            //         />
-            //     </g>
-            // }
-
             return <WrappedComponent
                 onMovableActive={onMovableActive}
                 onMovableDown={this.onMovableDown}

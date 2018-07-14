@@ -5,7 +5,8 @@ import ImageUploader from './components/ImageUploader';
 
 // utils
 import { partial } from './utils/functions';
-import { updateOrder } from './utils/elements';
+import { updateOrder, createElement } from './utils/elements';
+import { MovableSvgElement } from './components/Movable';
 
 class App extends Component {
 
@@ -132,6 +133,16 @@ class App extends Component {
 
     }
 
+    addText = () => {
+
+        const MovableText = MovableSvgElement('text')
+
+        const element = createElement(MovableText, { children: 'Text' },  {x: 200, y: 200})
+
+        this.addElement(element)
+
+    }
+
     componentDidMount () {
         this.previousMouseCoords = this.mainSVG.createSVGPoint()
     }
@@ -178,6 +189,7 @@ class App extends Component {
                         )
                     }
                 </svg>
+                <button onClick={this.addText}>Add text</button>
                 <ImageUploader
                     onImageUpload={this.onImageUpload}
                 />
