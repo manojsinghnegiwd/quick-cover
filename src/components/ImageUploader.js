@@ -1,6 +1,10 @@
 import React, { Fragment, PureComponent } from 'react'
-import HiddenElement from './HiddenElement';
-import { fileToDataUrl } from '../utils/elements';
+import ReactDOMServer from 'react-dom/server'
+
+import HiddenElement from './HiddenElement'
+import { MovableMarkup } from './Movable'
+
+import { fileToDataUrl, createElement } from '../utils/elements'
 
 export default class ImageUploader extends PureComponent {
 
@@ -18,10 +22,21 @@ export default class ImageUploader extends PureComponent {
 
             fileToDataUrl(file)
                 .then(
-                    dataUrl => this.props.onImageUpload({
-                        dataUrl,
-                        file
-                    })
+                    dataUrl => {
+
+                        const Image = 'Image'
+
+                        const MovableImage = MovableMarkup(ReactDOMServer.renderToStaticMarkup(<Image href={dataUrl} />), true)
+
+                        const element = createElement(MovableImage)
+
+                        this.props.onImageUpload({
+                            dataUrl,
+                            file,
+                            element
+                        })
+
+                    }
                 )
 
         }

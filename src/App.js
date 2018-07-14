@@ -1,9 +1,7 @@
 import React, { Component } from 'react'
-import ReactDOMServer from 'react-dom/server'
 
 // import MovableHOC from './components/Movable'
 import ImageUploader from './components/ImageUploader';
-import { MovableMarkup } from './components/Movable';
 
 
 // utils
@@ -112,13 +110,7 @@ class App extends Component {
 
     onImageUpload = uploadedImage => {
         
-        const { dataUrl } = uploadedImage
-
-        const Image = 'Image'
-
-        const MovableImage = MovableMarkup(ReactDOMServer.renderToStaticMarkup(<Image href={dataUrl} />), true)
-
-        const element = createElement(MovableImage)
+        const { element } = uploadedImage
 
         this.addElement(element)
 
