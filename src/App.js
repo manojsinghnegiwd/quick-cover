@@ -3,9 +3,9 @@ import React, { Component } from 'react'
 // import MovableHOC from './components/Movable'
 import ImageUploader from './components/ImageUploader';
 
-
 // utils
-import { createElement } from './utils/elements';
+import { partial } from './utils/functions';
+import { updateOrder } from './utils/elements';
 
 class App extends Component {
 
@@ -15,8 +15,8 @@ class App extends Component {
     }
 
     state = {
-        height: 500,
-        width: 500,
+        height: 600,
+        width: 1000,
         isMouseDown: false,
         activeElementIndex: null,
         offset: {
@@ -28,8 +28,8 @@ class App extends Component {
 
     updatePosition = (index, position) => {
 
-        this.previousMouseCoords.x = position.x;
-        this.previousMouseCoords.y = position.y;
+        this.previousMouseCoords.x = position.x
+        this.previousMouseCoords.y = position.y
 
         const positionInSVG = this.previousMouseCoords.matrixTransform(this.mainSVG.getScreenCTM().inverse())
 
@@ -46,6 +46,22 @@ class App extends Component {
         })
 
     }
+
+    updateOrder = (direction, index) => {
+
+        const { elements } = this.state
+
+        const { updatedELements, updatedIndex } = updateOrder(elements, direction, index)
+
+        this.setState({
+            elements: updatedELements,
+            activeElementIndex: updatedIndex
+        })
+
+    }
+
+    moveFront = partial(this.updateOrder, 'front')
+    moveBack = partial(this.updateOrder, 'back')
 
     onMouseMove = e => {
 
@@ -165,7 +181,11 @@ class App extends Component {
                 <ImageUploader
                     onImageUpload={this.onImageUpload}
                 />
-                { activeElementIndex !== null ? <button onClick={this.removeElement}> Remove Circle </button> : null}
+                { activeElementIndex !== null ? <div>
+                    <button onClick={this.removeElement}> Remove Circle </button>
+                    <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
+                    <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
+                </div> : null}
             </div>
         );
     }

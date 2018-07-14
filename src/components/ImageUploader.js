@@ -24,7 +24,7 @@ export default class ImageUploader extends PureComponent {
                 .then(
                     dataUrl => {
 
-                        const Image = 'Image'
+                        const Image = 'image'
 
                         const MovableImage = MovableMarkup(ReactDOMServer.renderToStaticMarkup(<Image href={dataUrl} />), true)
 
