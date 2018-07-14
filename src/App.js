@@ -1,22 +1,13 @@
 import React, { Component } from 'react'
+import ReactDOMServer from 'react-dom/server'
 
-import MovableHOC from './components/Movable'
+// import MovableHOC from './components/Movable'
+import ImageUploader from './components/ImageUploader';
+import { MovableMarkup } from './components/Movable';
 
-const MovableCircle = MovableHOC('circle')
 
-const circleElem = {
-    component: MovableCircle,
-    position: {
-        x: 0,
-        y: 0
-    },
-    props: {
-        cx: 50,
-        cy: 50,
-        r: 40,
-        fill: 'yellow',
-    }
-}
+// utils
+import { createElement } from './utils/elements';
 
 class App extends Component {
 
@@ -97,11 +88,11 @@ class App extends Component {
         offset
     })
 
-    addElement = () => {
+    addElement = (element) => {
         const { elements } = this.state
 
         this.setState({
-            elements: [...elements, circleElem]
+            elements: [...elements, element]
         })
 
     }
@@ -116,6 +107,20 @@ class App extends Component {
         this.setState({
             elements: copiedElements
         })
+
+    }
+
+    onImageUpload = uploadedImage => {
+        
+        const { dataUrl } = uploadedImage
+
+        const Image = 'Image'
+
+        const MovableImage = MovableMarkup(ReactDOMServer.renderToStaticMarkup(<Image href={dataUrl} />), true)
+
+        const element = createElement(MovableImage)
+
+        this.addElement(element)
 
     }
 
@@ -165,7 +170,9 @@ class App extends Component {
                         )
                     }
                 </svg>
-                <button onClick={this.addElement}> Add Circle </button>
+                <ImageUploader
+                    onImageUpload={this.onImageUpload}
+                />
                 { activeElementIndex !== null ? <button onClick={this.removeElement}> Remove Circle </button> : null}
             </div>
         );

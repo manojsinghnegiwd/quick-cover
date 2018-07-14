@@ -36,18 +36,47 @@ const MovableHOC = WrappedComponent =>
                 ...restProps
             } = this.props
 
-            return (
+            // let renderedHtml =  null
+            
+            // console.log({ __html: <WrappedComponent
+            //     {...restProps}
+            // />})
 
-                <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={this.onMovableDown}>
-                    <WrappedComponent
-                        {...restProps}
-                    />
-                </g>
+            // if(setInnerHtml) {
+            //     renderedHtml = <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={this.onMovableDown} dangerouslySetInnerHTML={{ __html: WrappedComponent}}></g>
+            // } else {
+            //     renderedHtml = <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={this.onMovableDown}>
+            //         <WrappedComponent
+            //             {...restProps}
+            //         />
+            //     </g>
+            // }
 
-            )
+            return <WrappedComponent
+                onMovableActive={onMovableActive}
+                onMovableDown={this.onMovableDown}
+                position={position}
+                {...restProps}
+            />
 
         }
 
     }
 
-export default MovableHOC
+export const MovableMarkup = WrappedComponent => MovableHOC(({
+    position,
+    onMovableActive,
+    onMovableDown,
+    ...restProps
+}) => <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={onMovableDown} dangerouslySetInnerHTML={{ __html: WrappedComponent}}></g>)
+
+export const MovableSvgElement = WrappedComponent => MovableHOC(({
+    position,
+    onMovableActive,
+    onMovableDown,
+    ...restProps
+}) => <g transform={`translate(${position.x}, ${position.y})`} onClick={onMovableActive} onMouseDown={onMovableDown}>
+    <WrappedComponent
+        {...restProps}
+    />
+</g>)
