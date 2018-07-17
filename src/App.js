@@ -24,7 +24,8 @@ class App extends Component {
             x: 0,
             y: 0
         },
-        elements: []
+        elements: [],
+        text:''
     }
 
     updatePosition = (index, position) => {
@@ -33,7 +34,6 @@ class App extends Component {
         this.previousMouseCoords.y = position.y
 
         const positionInSVG = this.previousMouseCoords.matrixTransform(this.mainSVG.getScreenCTM().inverse())
-
         const { elements } = this.state
         const copiedElements = [...elements]
 
@@ -95,10 +95,27 @@ class App extends Component {
         })
     }
 
-    onMovableActive = index => e => this.setState({
+    onMovableActive = index => e =>{ 
+      this.setState({
         activeElementIndex: index
     })
-    
+  }
+    editOnchange = index => e =>{
+      const {elements} = this.state
+      elements[index].props.children = e.target.value
+      this.setState({
+        elements
+      }) 
+    }
+
+    updateText = index => e =>{
+      const { elements } = this.state;
+      
+      this.setState({
+        elements
+      })
+    }
+ 
     onMovableDown = offset => this.setState({
         offset
     })
@@ -137,11 +154,12 @@ class App extends Component {
 
         const MovableText = MovableSvgElement('text')
 
-        const element = createElement(MovableText, { children: 'Text' },  {x: 200, y: 200})
+        const element = createElement(MovableText, { children: 'Text' }, {x: 200, y: 200})
 
         this.addElement(element)
 
     }
+
 
     componentDidMount () {
         this.previousMouseCoords = this.mainSVG.createSVGPoint()
@@ -153,8 +171,10 @@ class App extends Component {
             height,
             width,
             elements,
-            activeElementIndex
+            activeElementIndex,
         } = this.state;
+
+
 
         return (
             <div className="App">
@@ -170,7 +190,7 @@ class App extends Component {
                         elements.map(
                             (element, index) => {
                                 const { component, props, position} = element
-                                const { onMovableActive, onMovableDown } = this;
+                                const { onMovableActive, onMovableDown, editText } = this;
                                 const ComponentToRender = component
                                 const ComponentProps = {
                                     ...props,
@@ -189,7 +209,7 @@ class App extends Component {
                         )
                     }
                 </svg>
-                <button onClick={this.addText}>Add text</button>
+                {<button onClick={this.addText}>Add text</button>}
                 <ImageUploader
                     onImageUpload={this.onImageUpload}
                 />
@@ -197,6 +217,7 @@ class App extends Component {
                     <button onClick={this.removeElement}> Remove Circle </button>
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
+                    <input type='text'  onChange={this.editOnchange(activeElementIndex)} value={elements[activeElementIndex].props.children}/> <button onClick={this.updateText(activeElementIndex)}>Update</button>
                 </div> : null}
             </div>
         );
