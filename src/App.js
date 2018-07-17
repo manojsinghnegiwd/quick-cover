@@ -107,14 +107,6 @@ class App extends Component {
         elements
       }) 
     }
-
-    updateText = index => e =>{
-      const { elements } = this.state;
-      
-      this.setState({
-        elements
-      })
-    }
  
     onMovableDown = offset => this.setState({
         offset
@@ -190,7 +182,7 @@ class App extends Component {
                         elements.map(
                             (element, index) => {
                                 const { component, props, position} = element
-                                const { onMovableActive, onMovableDown, editText } = this;
+                                const { onMovableActive, onMovableDown } = this;
                                 const ComponentToRender = component
                                 const ComponentProps = {
                                     ...props,
@@ -209,7 +201,7 @@ class App extends Component {
                         )
                     }
                 </svg>
-                {<button onClick={this.addText}>Add text</button>}
+                <button onClick={this.addText}>Add text</button>
                 <ImageUploader
                     onImageUpload={this.onImageUpload}
                 />
@@ -217,7 +209,7 @@ class App extends Component {
                     <button onClick={this.removeElement}> Remove Circle </button>
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
-                    <input type='text'  onChange={this.editOnchange(activeElementIndex)} value={elements[activeElementIndex].props.children}/> <button onClick={this.updateText(activeElementIndex)}>Update</button>
+                    <input type='text'  onChange={this.editOnchange(activeElementIndex)} value={elements[activeElementIndex].props.children}/> 
                 </div> : null}
             </div>
         );
