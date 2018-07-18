@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 //color picker
-
+import { ChromePicker } from 'react-color'
 
 // import MovableHOC from './components/Movable'
 import ImageUploader from './components/ImageUploader';
@@ -202,6 +202,7 @@ class App extends Component {
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
                 </div> : null}
+                <ChromePicker />
             </div>
 
         );
