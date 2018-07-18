@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 
 // import MovableHOC from './components/Movable'
 import ImageUploader from './components/ImageUploader';
+import { ChromePicker } from 'react-color'
 
 // utils
 import { partial } from './utils/functions';
@@ -24,7 +25,10 @@ class App extends Component {
             x: 0,
             y: 0
         },
-        elements: []
+        elements: [],
+        svgBackgroundColor:{
+            r: '255', g: '255', b: '255', a: '1'
+        }
     }
 
     updatePosition = (index, position) => {
@@ -143,6 +147,12 @@ class App extends Component {
 
     }
 
+    changeSvgBackgroundColor = color => {
+
+    this.setState({ svgBackgroundColor: color.rgb });
+
+    };
+
     componentDidMount () {
         this.previousMouseCoords = this.mainSVG.createSVGPoint()
     }
@@ -153,7 +163,8 @@ class App extends Component {
             height,
             width,
             elements,
-            activeElementIndex
+            activeElementIndex,
+            svgBackgroundColor
         } = this.state;
 
         return (
@@ -165,6 +176,7 @@ class App extends Component {
                     onMouseMove={this.onMouseMove}
                     onMouseDown={this.onMouseDown}
                     onMouseUp={this.onMouseUp}
+                    style={{background: `rgba(${ svgBackgroundColor.r }, ${ svgBackgroundColor.g }, ${ svgBackgroundColor.b }, ${ svgBackgroundColor.a })`}}
                 >
                     {
                         elements.map(
@@ -198,6 +210,10 @@ class App extends Component {
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
                 </div> : null}
+                <ChromePicker 
+                    onChange={this.changeSvgBackgroundColor} 
+                    color={svgBackgroundColor} 
+                />
             </div>
         );
     }
