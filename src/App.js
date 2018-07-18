@@ -146,6 +146,11 @@ class App extends Component {
 
     }
 
+    onBackgroundChange(event){
+        console.log(event)
+
+    }
+
     componentDidMount () {
         this.previousMouseCoords = this.mainSVG.createSVGPoint()
     }
@@ -201,7 +206,7 @@ class App extends Component {
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
                 </div> : null}
-                    <ChromePicker />
+                <ChromePicker  onchange={this.onBackgroundChange.bind(this)} />
             </div>
 
         );
