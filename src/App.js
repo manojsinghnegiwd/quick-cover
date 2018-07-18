@@ -25,7 +25,6 @@ class App extends Component {
             y: 0
         },
         elements: [],
-        text:''
     }
 
     updatePosition = (index, position) => {
@@ -102,10 +101,17 @@ class App extends Component {
   }
     editOnchange = index => e =>{
       const {elements} = this.state
-      elements[index].props.children = e.target.value
+      const newElements = [...elements]
+      newElements[index] = {
+        ...newElements[index],
+        props:{
+            ...newElements[index].props,
+            children: e.target.value
+        }
+      }
       this.setState({
-        elements
-      }) 
+        elements: newElements
+      })
     }
  
     onMovableDown = offset => this.setState({
@@ -138,6 +144,7 @@ class App extends Component {
         
         const { element } = uploadedImage
 
+
         this.addElement(element)
 
     }
@@ -146,7 +153,7 @@ class App extends Component {
 
         const MovableText = MovableSvgElement('text')
 
-        const element = createElement(MovableText, { children: 'Text' }, {x: 200, y: 200})
+        const element = createElement(MovableText, { children: 'Text' }, {x: 200, y: 200}, 'text')
 
         this.addElement(element)
 
@@ -163,11 +170,10 @@ class App extends Component {
             height,
             width,
             elements,
-            activeElementIndex,
+            activeElementIndex
         } = this.state;
 
-
-
+        const selectedElement = elements[activeElementIndex] || {};
         return (
             <div className="App">
                 <svg
@@ -209,8 +215,12 @@ class App extends Component {
                     <button onClick={this.removeElement}> Remove Circle </button>
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
-                    <input type='text'  onChange={this.editOnchange(activeElementIndex)} value={elements[activeElementIndex].props.children}/> 
+                    {
+                      selectedElement.type === 'text' ? <input type='text'  onChange={this.editOnchange(activeElementIndex)} value={selectedElement.props.children}/>
+                       :null
+                    } 
                 </div> : null}
+
             </div>
         );
     }
