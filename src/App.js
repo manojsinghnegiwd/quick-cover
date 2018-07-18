@@ -122,7 +122,8 @@ class App extends Component {
         const { elements } = this.state
 
         this.setState({
-            elements: [...elements, element]
+            elements: [...elements, element],
+            activeElementIndex: elements.length
         })
 
     }
@@ -222,6 +223,7 @@ class App extends Component {
                 </div> : null}
 
             </div>
+
         );
     }
 }
