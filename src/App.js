@@ -107,7 +107,7 @@ class App extends Component {
 
     addElement = (element) => {
         const { elements } = this.state
-        const {activeElementIndex} = this.state
+
         this.setState({
             elements: [...elements, element],
             activeElementIndex: elements.length
