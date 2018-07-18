@@ -202,6 +202,7 @@ class App extends Component {
                         position={selectedElement.position}
                         width={activeElementDims.width}
                         height={activeElementDims.height}
+                        selectedElementType={selectedElement.type}
                     />
                     {
                         elements.map(
