@@ -27,7 +27,10 @@ class App extends Component {
         },
         elements: [],
         svgBackgroundColor:{
-            r: '255', g: '255', b: '255', a: '1'
+            r: '255',
+            g: '255', 
+            b: '255', 
+            a: '1'
         }
     }
 
@@ -37,7 +40,6 @@ class App extends Component {
         this.previousMouseCoords.y = position.y
 
         const positionInSVG = this.previousMouseCoords.matrixTransform(this.mainSVG.getScreenCTM().inverse())
-
         const { elements } = this.state
         const copiedElements = [...elements]
 
@@ -99,10 +101,26 @@ class App extends Component {
         })
     }
 
-    onMovableActive = index => e => this.setState({
+    onMovableActive = index => e =>{ 
+      this.setState({
         activeElementIndex: index
     })
-    
+  }
+    editOnchange = index => e =>{
+      const {elements} = this.state
+      const newElements = [...elements]
+      newElements[index] = {
+        ...newElements[index],
+        props:{
+            ...newElements[index].props,
+            children: e.target.value
+        }
+      }
+      this.setState({
+        elements: newElements
+      })
+    }
+ 
     onMovableDown = offset => this.setState({
         offset
     })
@@ -111,7 +129,8 @@ class App extends Component {
         const { elements } = this.state
 
         this.setState({
-            elements: [...elements, element]
+            elements: [...elements, element],
+            activeElementIndex: elements.length
         })
 
     }
@@ -133,6 +152,7 @@ class App extends Component {
         
         const { element } = uploadedImage
 
+
         this.addElement(element)
 
     }
@@ -141,7 +161,7 @@ class App extends Component {
 
         const MovableText = MovableSvgElement('text')
 
-        const element = createElement(MovableText, { children: 'Text' },  {x: 200, y: 200})
+        const element = createElement(MovableText, { children: 'Text' }, {x: 200, y: 200}, 'text')
 
         this.addElement(element)
 
@@ -167,6 +187,7 @@ class App extends Component {
             svgBackgroundColor
         } = this.state;
 
+        const selectedElement = elements[activeElementIndex] || {};
         return (
             <div className="App">
                 <svg
@@ -209,12 +230,17 @@ class App extends Component {
                     <button onClick={this.removeElement}> Remove Circle </button>
                     <button onClick={() => this.moveFront(activeElementIndex)}> front </button>
                     <button onClick={() => this.moveBack(activeElementIndex)}> back </button>
+                    {
+                      selectedElement.type === 'text' ? <input type='text'  onChange={this.editOnchange(activeElementIndex)} value={selectedElement.props.children}/>
+                       :null
+                    } 
                 </div> : null}
                 <ChromePicker 
                     onChange={this.changeSvgBackgroundColor} 
                     color={svgBackgroundColor} 
                 />
             </div>
+
         );
     }
 }

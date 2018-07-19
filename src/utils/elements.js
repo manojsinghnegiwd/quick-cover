@@ -1,9 +1,10 @@
-export const createElement = (component, props = {}, position = { x: 0, y: 0 }) => {
+export const createElement = (component, props = {}, position = { x: 0, y: 0 }, type) => {
 
     return {
         component,
         position,
-        props
+        props,
+        type
     }
 
 }
@@ -54,9 +55,9 @@ export const shiftIndex = (arr, baseIndex, targetIndex) => {
 }
 
 export const updateOrder = (elements, direction, index) => {
-    if(direction == 'front') {
+    if(direction === 'front') {
         return shiftIndex(elements, index, index + 1)
-    } else if ( direction == 'back') {
+    } else if ( direction === 'back') {
         return shiftIndex(elements, index, index - 1)
     }
 
