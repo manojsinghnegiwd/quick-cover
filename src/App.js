@@ -8,6 +8,7 @@ import { ChromePicker } from 'react-color'
 import { partial } from './utils/functions';
 import { updateOrder, createElement } from './utils/elements';
 import { MovableSvgElement } from './components/Movable';
+import ElementList from './components/ElementList';
 
 class App extends Component {
 
@@ -199,28 +200,11 @@ class App extends Component {
                     onMouseUp={this.onMouseUp}
                     style={{background: `rgba(${ svgBackgroundColor.r }, ${ svgBackgroundColor.g }, ${ svgBackgroundColor.b }, ${ svgBackgroundColor.a })`}}
                 >
-                    {
-                        elements.map(
-                            (element, index) => {
-                                const { component, props, position} = element
-                                const { onMovableActive, onMovableDown } = this;
-                                const ComponentToRender = component
-                                const ComponentProps = {
-                                    ...props,
-                                    position
-                                }
-
-                                return (
-                                    <ComponentToRender
-                                        key={index}
-                                        onMovableActive={onMovableActive(index)}
-                                        onMovableDown={onMovableDown}
-                                        {...ComponentProps}
-                                    />
-                                )
-                            }
-                        )
-                    }
+                <ElementList 
+                    elements={elements}
+                    onMovableActive={this.onMovableActive}
+                    onMovableDown={this.onMovableDown}
+                />
                 </svg>
                 <button onClick={this.addText}>Add text</button>
                 <ImageUploader
