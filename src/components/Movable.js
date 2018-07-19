@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 
+import { findDimensions } from '../utils/elements';
+
 const MovableHOC = WrappedComponent =>
     class Movable extends Component {
 
@@ -14,12 +16,11 @@ const MovableHOC = WrappedComponent =>
                 target
             } = e;
 
-            const dim = target.getBoundingClientRect();
+            const dim = findDimensions(e.target);
             const x = e.clientX - dim.left;
             const y = e.clientY - dim.top;
 
-
-            onMovableDown({x, y})
+            onMovableDown({x, y}, dim)
             onMovableActive(e)
 
         }
