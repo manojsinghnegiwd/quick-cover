@@ -66,3 +66,7 @@ export const updateOrder = (elements, direction, index) => {
         updatedIndex: index
     }
 }
+
+export const findDimensions = element => {
+    return element.getBoundingClientRect();
+}

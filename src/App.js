@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-
-// import MovableHOC from './components/Movable'
-import ImageUploader from './components/ImageUploader';
 import { ChromePicker } from 'react-color'
 
 // utils
 import { partial } from './utils/functions';
-import { updateOrder, createElement } from './utils/elements';
+import { updateOrder, createElement, findDimensions } from './utils/elements';
+
+import ImageUploader from './components/ImageUploader';
+import SelectableLayer from './components/SelectableLayer';
 import { MovableSvgElement } from './components/Movable';
 import ElementList from './components/ElementList';
 
@@ -22,6 +22,10 @@ class App extends Component {
         width: 1000,
         isMouseDown: false,
         activeElementIndex: null,
+        activeElementDims: {
+            width: 0,
+            height: 0
+        },
         offset: {
             x: 0,
             y: 0
@@ -94,7 +98,7 @@ class App extends Component {
     onMouseUp = e => {
         this.setState({
             isMouseDown: false,
-            activeElementIndex: null,
+            // activeElementIndex: null,
             offset: {
                 x: 0,
                 y: 0
@@ -102,12 +106,17 @@ class App extends Component {
         })
     }
 
-    onMovableActive = index => e =>{ 
-      this.setState({
-        activeElementIndex: index
-    })
-  }
-    editOnchange = index => e =>{
+    onMovableActive = index => e => {
+
+        const dims = findDimensions(e.target)
+
+        this.setState({
+            activeElementIndex: index,
+            activeElementDims: dims
+        })
+    }
+    
+    editOnchange = index => e => {
       const {elements} = this.state
       const newElements = [...elements]
       newElements[index] = {
@@ -122,9 +131,12 @@ class App extends Component {
       })
     }
  
-    onMovableDown = offset => this.setState({
-        offset
-    })
+    onMovableDown = (offset, dims) => {
+        this.setState({
+            offset,
+            dims
+        })
+    }
 
     addElement = (element) => {
         const { elements } = this.state
@@ -185,6 +197,7 @@ class App extends Component {
             width,
             elements,
             activeElementIndex,
+            activeElementDims,
             svgBackgroundColor
         } = this.state;
 
@@ -200,11 +213,19 @@ class App extends Component {
                     onMouseUp={this.onMouseUp}
                     style={{background: `rgba(${ svgBackgroundColor.r }, ${ svgBackgroundColor.g }, ${ svgBackgroundColor.b }, ${ svgBackgroundColor.a })`}}
                 >
-                <ElementList 
-                    elements={elements}
-                    onMovableActive={this.onMovableActive}
-                    onMovableDown={this.onMovableDown}
-                />
+
+                    <ElementList 
+                        elements={elements}
+                        onMovableActive={this.onMovableActive}
+                        onMovableDown={this.onMovableDown}
+                    />
+                    <SelectableLayer
+                        position={selectedElement.position}
+                        width={activeElementDims.width}
+                        height={activeElementDims.height}
+                        selectedElementType={selectedElement.type}
+                    />
+                    
                 </svg>
                 <button onClick={this.addText}>Add text</button>
                 <ImageUploader
