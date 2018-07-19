@@ -148,8 +148,8 @@ class App extends Component {
     }
 
     changeSvgBackgroundColor = color => {
-
-    this.setState({ svgBackgroundColor: color.rgb });
+        
+        this.setState({ svgBackgroundColor: color.rgb });
 
     };
 
