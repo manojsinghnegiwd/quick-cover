@@ -30,19 +30,12 @@ ElementList.propTypes = {
     elements:PropTypes.array.isRequired,
     onMovableActive:PropTypes.func.isRequired,
     onMovableDown:PropTypes.func.isRequired
-
 }
 
 ElementList.defaultProps = {
-    elements:[{
-        component:'',
-        props: {},
-        position:{
-            x:0,y:0
-        }
-    }],
-    onMovableActive:() => void(0),
-    onMovableDown:() => void(0)
+    elements:[],
+    onMovableActive:() => {},
+    onMovableDown:() => {}
 }
 
 export default ElementList;

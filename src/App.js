@@ -213,17 +213,16 @@ class App extends Component {
                     onMouseUp={this.onMouseUp}
                     style={{background: `rgba(${ svgBackgroundColor.r }, ${ svgBackgroundColor.g }, ${ svgBackgroundColor.b }, ${ svgBackgroundColor.a })`}}
                 >
-
-                    <ElementList 
-                        elements={elements}
-                        onMovableActive={this.onMovableActive}
-                        onMovableDown={this.onMovableDown}
-                    />
                     <SelectableLayer
                         position={selectedElement.position}
                         width={activeElementDims.width}
                         height={activeElementDims.height}
                         selectedElementType={selectedElement.type}
+                    />
+                    <ElementList 
+                        elements={elements}
+                        onMovableActive={this.onMovableActive}
+                        onMovableDown={this.onMovableDown}
                     />
                     
                 </svg>
