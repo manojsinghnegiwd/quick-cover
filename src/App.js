@@ -8,6 +8,7 @@ import { updateOrder, createElement, findDimensions } from './utils/elements';
 import ImageUploader from './components/ImageUploader';
 import SelectableLayer from './components/SelectableLayer';
 import { MovableSvgElement } from './components/Movable';
+import ElementList from './components/ElementList';
 
 class App extends Component {
 
@@ -218,28 +219,12 @@ class App extends Component {
                         height={activeElementDims.height}
                         selectedElementType={selectedElement.type}
                     />
-                    {
-                        elements.map(
-                            (element, index) => {
-                                const { component, props, position} = element
-                                const { onMovableActive, onMovableDown } = this;
-                                const ComponentToRender = component
-                                const ComponentProps = {
-                                    ...props,
-                                    position
-                                }
-
-                                return (
-                                    <ComponentToRender
-                                        key={index}
-                                        onMovableActive={onMovableActive(index)}
-                                        onMovableDown={onMovableDown}
-                                        {...ComponentProps}
-                                    />
-                                )
-                            }
-                        )
-                    }
+                    <ElementList 
+                        elements={elements}
+                        onMovableActive={this.onMovableActive}
+                        onMovableDown={this.onMovableDown}
+                    />
+                    
                 </svg>
                 <button onClick={this.addText}>Add text</button>
                 <ImageUploader
