@@ -1,0 +1,1 @@
+export const SVG_SIZE = 'SVG_SIZE';
