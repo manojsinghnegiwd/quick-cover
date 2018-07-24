@@ -1,1 +1,1 @@
-export const SVG_SIZE = 'SVG_SIZE';
+export const UPDATE_SVG_CANVAS_SIZE = 'UPDATE_SVG_CANVAS_SIZE';

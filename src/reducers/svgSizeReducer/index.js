@@ -11,8 +11,8 @@ export function svgSizeReducer(state = initState, action) {
 
 	switch(action.type) {
 		
-		case types.SVG_SIZE:
-		return Object.assign({}, state, { size: action.payload});
+		case types.UPDATE_SVG_CANVAS_SIZE:
+		return { ...state, size: action.payload};
 		break;
 
 		default:

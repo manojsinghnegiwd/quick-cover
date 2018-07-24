@@ -235,6 +235,6 @@ export default
    )
  )(TextEditor)
 const mapDispatch = dispatch => {
- const allActionProps = Object.assign({}, dispatch)
- return allActionProps
+    const allActionProps = Object.assign({}, dispatch)
+    return allActionProps
 }

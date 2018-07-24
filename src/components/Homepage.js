@@ -5,11 +5,10 @@ import { svgSizeAction } from '../actions/svgSizeAction'
 class Homepage extends React.Component {
 
 	state = {
-
 		size:{
-			width:'1000',
-			height:'1000'
-		},
+			width:1000,
+			height:1000
+		}
 	}
 
 	getWidthHeight = key => event => {
@@ -25,11 +24,14 @@ class Homepage extends React.Component {
 
 	setWidthHeight = () =>{
 		const {size} = this.state
-		const newSize ={...size}
+		let newSize ={...size}
 
-		if(newSize.width == '0' || newSize.height == '0') {
-			newSize.width = '1000'
-			newSize.height = '1000'
+		if(newSize.width === 0 || null || newSize.height === 0 || null) {
+
+			newSize ={
+				height:1000,
+				width:1000
+			}
 
 			this.setState({
 				size:newSize
@@ -42,7 +44,9 @@ class Homepage extends React.Component {
 	}
 
 	render(){
+
 		const {width, height} = this.state.size
+
 		return(
 			<div>
 				<label>Width :</label>
@@ -64,6 +68,6 @@ export default
    )
  )(Homepage)
 const mapDispatch = dispatch => {
- const allActionProps = Object.assign({}, dispatch)
- return allActionProps
+	const allActionProps = Object.assign({}, dispatch)
+	return allActionProps
 }

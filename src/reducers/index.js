@@ -4,5 +4,4 @@ import { svgSizeReducer } from './svgSizeReducer'
 export default combineReducers({
 	router: routerReducer,
 	svgSizeReducer : svgSizeReducer
-
 });

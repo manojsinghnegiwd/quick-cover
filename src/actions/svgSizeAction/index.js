@@ -10,7 +10,7 @@ export const svgSizeAction = (data) => {
 		
 	 return dispatch => {
 	 	dispatch({
-	 		type: types.SVG_SIZE,
+	 		type: types.UPDATE_SVG_CANVAS_SIZE,
 	 		payload: svgSize
 	 	})
 	 }
