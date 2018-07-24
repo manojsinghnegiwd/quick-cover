@@ -173,7 +173,7 @@ class TextEditor extends Component {
         const {width, height} = this.props.svgSizeReducer.size;
 
         const selectedElement = elements[activeElementIndex] || {};
-        console.log(this.props)
+        
         return (
             <div className="App">
                 <svg
@@ -237,6 +237,7 @@ export default
    )
  )(TextEditor)
 const mapDispatch = dispatch => {
+    
     const allActionProps = Object.assign({}, dispatch)
     return allActionProps
 }

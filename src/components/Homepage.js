@@ -6,8 +6,8 @@ class Homepage extends React.Component {
 
 	state = {
 		size:{
-			width:1000,
-			height:1000
+			width:0,
+			height:0
 		}
 	}
 
@@ -49,9 +49,9 @@ class Homepage extends React.Component {
 
 		return(
 			<div>
-				<label>Width :</label>
+				<label>Width : </label>
 				<input type="number" placeholder="width" value={width} onChange={this.getWidthHeight('width')} />
-				<label>Height :</label>
+				<label>Height : </label>
 				<input type="number" placeholder="height" value={height} onChange={this.getWidthHeight('height')}  />
 				<button type="submit" onClick={this.setWidthHeight} >create</button>
 			</div>
@@ -68,6 +68,7 @@ export default
    )
  )(Homepage)
 const mapDispatch = dispatch => {
+	
 	const allActionProps = Object.assign({}, dispatch)
 	return allActionProps
 }

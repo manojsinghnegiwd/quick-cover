@@ -1,7 +1,5 @@
 import * as types from '../types.js';
 
-import store from '../../store';
-
 export const svgSizeAction = (data) => {
 		
 	 return dispatch => {
