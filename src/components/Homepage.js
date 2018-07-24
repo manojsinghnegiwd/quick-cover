@@ -26,7 +26,7 @@ class Homepage extends React.Component {
 		const {size} = this.state
 		let newSize ={...size}
 
-		if(newSize.width === 0 || null || newSize.height === 0 || null) {
+		if(newSize.width == 0 || null || newSize.height == 0 || null) {
 
 			newSize ={
 				height:1000,

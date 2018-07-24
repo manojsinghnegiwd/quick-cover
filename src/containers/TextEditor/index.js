@@ -169,9 +169,11 @@ class TextEditor extends Component {
             elements,
             activeElementIndex
         } = this.state;
+
         const {width, height} = this.props.svgSizeReducer.size;
 
         const selectedElement = elements[activeElementIndex] || {};
+        console.log(this.props)
         return (
             <div className="App">
                 <svg
