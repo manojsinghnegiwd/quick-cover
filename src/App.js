@@ -207,6 +207,7 @@ class App extends Component {
                 <svg
                     ref={c => this.mainSVG = c}
                     width={width}
+                    className='pointer'
                     height={height}
                     onMouseMove={this.onMouseMove}
                     onMouseDown={this.onMouseDown}
